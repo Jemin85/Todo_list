@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class Toddu extends ChangeNotifier{
+class TodoProvider extends ChangeNotifier{
 
-  List<ToduAdd> _addData = [];
+  List<TodoAdd> _addData = [];
 
-   List<ToduAdd> get addData => _addData;
+   List<TodoAdd> get addData => _addData;
 
   void addTodoData(String data,BuildContext context){
-    final object = ToduAdd(check: false, title: data);
+    final object = TodoAdd(check: false, title: data);
     _addData.add(object);
     Navigator.pop(context);
     notifyListeners();
@@ -24,8 +24,8 @@ class Toddu extends ChangeNotifier{
   }
 }
 
-class ToduAdd{
+class TodoAdd{
   final String title;
    bool check;
-  ToduAdd({required this.check,required this.title});
+  TodoAdd({required this.check,required this.title});
 }

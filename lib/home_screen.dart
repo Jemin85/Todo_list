@@ -15,10 +15,10 @@ class _HomeScreenState extends State<HomeScreen> {
   List checkList = [];
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<Toddu>(context);
+    final data = Provider.of<TodoProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("TODU List"),
+        title: const Text("ToDo List"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
           showModalBottomSheet(context: context,
               isScrollControlled: true,
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30)
@@ -35,25 +35,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               builder: (context) => _addDataBottomSheet());
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: ListView.builder(
           itemCount: data.addData.length,
           itemBuilder: (context,index) => GestureDetector(
             onLongPress: (){
-              print("--------------");
-              Provider.of<Toddu>(context,listen: false).removeTodoData(index);
+
+              Provider.of<TodoProvider>(context,listen: false).removeTodoData(index);
             },
             child: ListTile(
         leading: Text("${index + 1}"),
-        title: Text("${data.addData[index].title}",style: TextStyle(
+        title: Text(data.addData[index].title,style: TextStyle(
           decoration:data.addData[index].check! ? TextDecoration.lineThrough : TextDecoration.none
         ),),
         trailing: Checkbox(
             value: data.addData[index].check,
             onChanged: (value){
 
-                Provider.of<Toddu>(context,listen: false).checkData(index, value!);
+                Provider.of<TodoProvider>(context,listen: false).checkData(index, value!);
 
             },
         ),
@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [
-          const Text("Add Todu List Data",style: TextStyle(
+          const Text("Add Todo List Data",style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Colors.black
@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 50),
           ElevatedButton(onPressed: (){
-            Provider.of<Toddu>(context,listen: false).addTodoData(add.text,context);
+            Provider.of<TodoProvider>(context,listen: false).addTodoData(add.text,context);
           }, child: const Text("Add"))
         ],
       ),
